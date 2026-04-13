@@ -461,15 +461,17 @@
             text-align: center;
         }
 
-        .figure-row.equal-height {
-            align-items: start;
+        .figure-row.equal-height .figure-cell {
+            display: flex;
+            flex-direction: column;
         }
 
         .figure-row.equal-height .figure-cell img {
             width: 100%;
-            height: 280px;
+            flex: 1;
             object-fit: contain;
             background: #fff;
+            border: 1px solid var(--color-border);
         }
 
         /* ── Method overview diagram ── */
@@ -989,7 +991,7 @@
         FMTG solves latent inverse problems at remarkably low NFEs and steers generation toward higher aesthetic quality with increasing NFE, producing visually compelling results at NFE 6 and 10.
     </p>
 
-    <div class="figure-row">
+    <div class="figure-row equal-height">
         <div class="figure-cell">
             <img src="static/images/selling_v2_left.png" alt="Latent inverse problems">
             <p class="figure-caption"><strong>(a) Latent inverse problems.</strong> FMTG reconstructs super-resolution (4&times;), motion deblur, and box inpainting from degraded measurements at NFE 3 and 12.</p>
