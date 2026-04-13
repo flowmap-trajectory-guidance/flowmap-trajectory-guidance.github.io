@@ -856,15 +856,21 @@
         We evaluate FMTG on reward functions of varying complexity: L<sub>2</sub> reconstruction losses for linear inverse problems, VGG-based style losses, neural-network human preference rewards, and vision-language model rewards for text-to-image generation.
     </p>
 
-    <!-- Inverse Problems -->
-    <h3>Inverse Problems</h3>
+    <!-- Inverse Problems & Human Preference Rewards -->
+    <h3>Inverse Problems & Human Preference Reward Guidance</h3>
     <p>
-        FMTG solves latent inverse problems at remarkably low NFEs, achieving competitive or superior quality with 2&ndash;10&times; fewer NFEs than FlowDPS, FlowChef, and DPS.
+        FMTG solves latent inverse problems at remarkably low NFEs and steers generation toward higher aesthetic quality with increasing NFE, producing visually compelling results at NFE 6 and 10.
     </p>
 
-    <div class="figure-block">
-        <img src="static/images/paper_fig_3row_with_gt.png" alt="Inverse problems qualitative results">
-        <p class="figure-caption"><strong>Latent inverse problems.</strong> FMTG reconstructs super-resolution (4&times;), motion deblur, and box inpainting from degraded measurements at NFE 3 and 12, matching or exceeding baselines that use many more network evaluations.</p>
+    <div class="figure-row">
+        <div class="figure-cell">
+            <img src="static/images/selling_v2_left.png" alt="Latent inverse problems">
+            <p class="figure-caption"><strong>(a) Latent inverse problems.</strong> FMTG reconstructs super-resolution (4&times;), motion deblur, and box inpainting from degraded measurements at NFE 3 and 12.</p>
+        </div>
+        <div class="figure-cell">
+            <img src="static/images/aesthetic_nfe_sweep.png" alt="Human preference reward guidance">
+            <p class="figure-caption"><strong>(b) Human preference reward guidance.</strong> FMTG steers generation toward higher aesthetic quality with increasing NFE, producing visually compelling results at NFE 6 and 10.</p>
+        </div>
     </div>
 
     <!-- Quantitative table -->
@@ -909,14 +915,14 @@
     </div>
 
     <!-- Style Guidance -->
-    <h3>Style Guidance</h3>
+    <h3>Style Guidance: Hierarchy of Methods</h3>
     <p>
-        FMTG steers generation toward a target visual style while preserving semantic content, using the Frobenius norm between Gram matrices of VGG features as a style reward.
+        FMTG steers generation toward a target visual style while preserving semantic content, using the Frobenius norm between Gram matrices of VGG features as a style reward. The Jacobian gradient (FMTG-J) captures the target style most faithfully while preserving semantic content.
     </p>
 
     <div class="figure-block">
-        <img src="static/images/style2.png" alt="Style guidance results">
-        <p class="figure-caption"><strong>Style guidance.</strong> FMTG generates images in diverse artistic styles (Starry Night, Retro Poster, JoJo Manga, Mosaic) with high precision, producing faithful style transfer at NFE 6 and 20.</p>
+        <img src="static/images/hierarchy_variant1_4rows.png" alt="Style guidance hierarchy of methods">
+        <p class="figure-caption"><strong>Style guidance: hierarchy of methods.</strong> Given a style reference (left), we compare unguided FLUX, Jacobian-based methods (FMTG-J, DPS), and Euclidean-based methods (FMTG-E, FlowChef). FMTG-J captures the target style most faithfully while preserving semantic content.</p>
     </div>
 
     <!-- GenEval -->
