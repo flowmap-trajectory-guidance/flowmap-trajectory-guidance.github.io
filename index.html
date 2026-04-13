@@ -336,6 +336,30 @@
             background: linear-gradient(transparent, rgba(20, 60, 180, 0.65));
         }
 
+        .teaser-task-label {
+            font-family: var(--font-sans);
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--color-accent);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .teaser-task-label.small {
+            font-size: 0.72rem;
+            margin-bottom: 0;
+        }
+
+        .teaser-strip-labels {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            margin-top: 1.25rem;
+            margin-bottom: 0.4rem;
+        }
+
         .teaser-caption {
             text-align: center;
             padding: 1rem 1.5rem;
@@ -799,10 +823,13 @@
 
 <!-- Teaser -->
 <div class="teaser">
+    <!-- Task label for hero -->
+    <div class="teaser-task-label">Human Preference Reward Guidance</div>
+
     <!-- Big hero: before → after -->
     <div class="teaser-hero">
         <div class="teaser-side">
-            <img src="static/images/aesthetic_abstract_unguided.png" alt="FLUX.1-dev unguided">
+            <img src="static/images/aesthetic_abstract_unguided_flipped.png" alt="FLUX.1-dev unguided">
             <span class="side-badge left">FLUX.1-dev</span>
         </div>
         <div class="teaser-side">
@@ -810,6 +837,12 @@
             <span class="side-badge right">+ FMTG (Ours)</span>
         </div>
         <div class="teaser-arrow"><i class="fas fa-arrow-right"></i></div>
+    </div>
+
+    <!-- Task labels for strip -->
+    <div class="teaser-strip-labels">
+        <div class="teaser-task-label small">Text-to-Image Alignment &mdash; &ldquo;a red zebra&rdquo;</div>
+        <div class="teaser-task-label small">Inverse Problem &mdash; Super-Resolution</div>
     </div>
 
     <!-- Strip: more examples across tasks -->
@@ -820,7 +853,7 @@
         </div>
         <div class="teaser-strip-item">
             <img src="static/images/comp_zebra_fmtg.png" alt="FMTG: a red zebra">
-            <div class="strip-label ours">FMTG &mdash; &ldquo;a red zebra&rdquo;</div>
+            <div class="strip-label ours">FMTG (Ours)</div>
         </div>
         <div class="teaser-strip-item">
             <img src="static/images/inv_measurement.png" alt="Degraded measurement">
@@ -828,7 +861,7 @@
         </div>
         <div class="teaser-strip-item">
             <img src="static/images/inv_fmtg_nfe12.png" alt="FMTG reconstruction">
-            <div class="strip-label ours">FMTG (NFE 12)</div>
+            <div class="strip-label ours">FMTG (Ours)</div>
         </div>
     </div>
 
