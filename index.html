@@ -234,36 +234,78 @@
 
         .teaser-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
             border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 24px rgba(0, 0, 0, 0.08);
         }
 
-        .teaser-item {
+        .teaser-pair {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+        }
+
+        .teaser-pair .pair-header {
+            padding: 0.6rem 0.75rem;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--color-text-secondary);
+            border-bottom: 1px solid var(--color-border);
+            text-align: center;
+        }
+
+        .teaser-pair .pair-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .teaser-pair .pair-img {
             position: relative;
             overflow: hidden;
         }
 
-        .teaser-item img {
+        .teaser-pair .pair-img img {
             width: 100%;
-            height: 100%;
+            aspect-ratio: 1;
             object-fit: cover;
             display: block;
         }
 
-        .teaser-item .label {
+        .teaser-pair .pair-img .img-label {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 2rem 0.75rem 0.5rem;
-            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            padding: 1.5rem 0.5rem 0.35rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.65));
             color: #fff;
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-weight: 600;
-            letter-spacing: 0.03em;
+            text-align: center;
+            letter-spacing: 0.02em;
+        }
+
+        .teaser-pair .pair-img .img-label.baseline {
+            background: linear-gradient(transparent, rgba(0,0,0,0.5));
+            color: rgba(255,255,255,0.85);
+        }
+
+        .teaser-pair .pair-img .img-label.ours {
+            background: linear-gradient(transparent, rgba(20, 60, 180, 0.7));
+        }
+
+        .teaser-pair .pair-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--color-accent);
+            background: var(--color-accent-soft);
+            width: 2px;
         }
 
         .teaser-caption {
@@ -729,31 +771,52 @@
 
 <!-- Teaser -->
 <div class="teaser">
-    <div class="teaser-grid" style="grid-template-columns: repeat(3, 1fr);">
-        <div class="teaser-item" style="grid-row: span 2;">
-            <img src="static/images/aesthetic_abstract_fmtg.png" alt="FMTG: Human preference reward guidance" style="height: 100%; object-fit: cover;">
-            <div class="label">Human Preference Rewards</div>
+    <div class="teaser-grid">
+        <!-- Pair 1: Aesthetic reward -->
+        <div class="teaser-pair">
+            <div class="pair-header">Human Preference Rewards</div>
+            <div class="pair-images">
+                <div class="pair-img">
+                    <img src="static/images/aesthetic_abstract_unguided.png" alt="Unguided baseline">
+                    <div class="img-label baseline">FLUX.1-dev</div>
+                </div>
+                <div class="pair-img">
+                    <img src="static/images/aesthetic_abstract_fmtg.png" alt="FMTG guided">
+                    <div class="img-label ours">FMTG (Ours)</div>
+                </div>
+            </div>
         </div>
-        <div class="teaser-item">
-            <img src="static/images/comp_zebra_base.png" alt="FLUX.1-dev baseline">
-            <div class="label">FLUX.1-dev</div>
+        <!-- Pair 2: Compositional generation -->
+        <div class="teaser-pair">
+            <div class="pair-header">Text-to-Image Alignment &mdash; &ldquo;a red zebra&rdquo;</div>
+            <div class="pair-images">
+                <div class="pair-img">
+                    <img src="static/images/comp_zebra_base.png" alt="FLUX.1-dev fails compositionally">
+                    <div class="img-label baseline">FLUX.1-dev</div>
+                </div>
+                <div class="pair-img">
+                    <img src="static/images/comp_zebra_fmtg.png" alt="FMTG corrects composition">
+                    <div class="img-label ours">FMTG (Ours)</div>
+                </div>
+            </div>
         </div>
-        <div class="teaser-item">
-            <img src="static/images/comp_zebra_fmtg.png" alt="FMTG: a red zebra">
-            <div class="label">FMTG &mdash; &ldquo;a red zebra&rdquo;</div>
-        </div>
-        <div class="teaser-item">
-            <img src="static/images/inv_measurement.png" alt="Degraded measurement">
-            <div class="label">Measurement</div>
-        </div>
-        <div class="teaser-item">
-            <img src="static/images/inv_fmtg_nfe12.png" alt="FMTG reconstruction">
-            <div class="label">FMTG (NFE 12)</div>
+        <!-- Pair 3: Inverse problem -->
+        <div class="teaser-pair">
+            <div class="pair-header">Inverse Problems &mdash; Super-Resolution</div>
+            <div class="pair-images">
+                <div class="pair-img">
+                    <img src="static/images/inv_measurement.png" alt="Degraded measurement">
+                    <div class="img-label baseline">Measurement</div>
+                </div>
+                <div class="pair-img">
+                    <img src="static/images/inv_fmtg_nfe12.png" alt="FMTG reconstruction">
+                    <div class="img-label ours">FMTG (NFE 12)</div>
+                </div>
+            </div>
         </div>
     </div>
     <p class="teaser-caption">
-        <strong>Flow Map Trajectory Guidance (FMTG)</strong> enables principled guidance of flow-based generative models with as few as 3 network evaluations.
-        From human preference alignment (left) to compositional text-to-image generation (top right) and inverse problems (bottom right), FMTG achieves state-of-the-art results with an order of magnitude fewer compute steps.
+        <strong>FMTG</strong> uses pre-trained flow maps to guide generation at test time, achieving state-of-the-art results across human preference alignment, compositional text-to-image generation, and inverse problems &mdash; with up to <strong>70&times; fewer</strong> network evaluations than competing methods.
     </p>
 </div>
 
