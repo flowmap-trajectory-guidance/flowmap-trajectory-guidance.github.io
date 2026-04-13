@@ -227,85 +227,113 @@
 
         /* ── Teaser / Overview ── */
         .teaser {
-            max-width: var(--max-width);
-            margin: 0 auto 1rem;
+            max-width: 1100px;
+            margin: 0 auto 1.5rem;
             padding: 0 1.5rem;
         }
 
-        .teaser-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.25rem;
-            border-radius: 12px;
-        }
-
-        .teaser-pair {
-            background: var(--color-surface);
-            border: 1px solid var(--color-border);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 16px rgba(0,0,0,0.06);
-        }
-
-        .teaser-pair .pair-header {
-            padding: 0.6rem 0.75rem;
-            font-size: 0.72rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--color-text-secondary);
-            border-bottom: 1px solid var(--color-border);
-            text-align: center;
-        }
-
-        .teaser-pair .pair-images {
+        .teaser-hero {
             display: grid;
             grid-template-columns: 1fr 1fr;
-        }
-
-        .teaser-pair .pair-img {
-            position: relative;
+            gap: 0;
+            border-radius: 16px;
             overflow: hidden;
+            box-shadow: 0 4px 32px rgba(0,0,0,0.12);
+            position: relative;
         }
 
-        .teaser-pair .pair-img img {
+        .teaser-side {
+            position: relative;
+        }
+
+        .teaser-side img {
             width: 100%;
             aspect-ratio: 1;
             object-fit: cover;
             display: block;
         }
 
-        .teaser-pair .pair-img .img-label {
+        .teaser-side .side-badge {
+            position: absolute;
+            top: 0.75rem;
+            padding: 0.4rem 0.9rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .teaser-side .side-badge.left {
+            left: 0.75rem;
+            background: rgba(0,0,0,0.55);
+            color: rgba(255,255,255,0.9);
+            backdrop-filter: blur(8px);
+        }
+
+        .teaser-side .side-badge.right {
+            right: 0.75rem;
+            background: rgba(45, 90, 240, 0.85);
+            color: #fff;
+            backdrop-filter: blur(8px);
+        }
+
+        .teaser-arrow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--color-accent);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 12px rgba(45, 90, 240, 0.4);
+        }
+
+        .teaser-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            margin-top: 0.75rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+        }
+
+        .teaser-strip-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .teaser-strip-item img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            display: block;
+        }
+
+        .teaser-strip-item .strip-label {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 1.5rem 0.5rem 0.35rem;
-            background: linear-gradient(transparent, rgba(0,0,0,0.65));
+            padding: 1.8rem 0.5rem 0.4rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
             color: #fff;
-            font-size: 0.68rem;
+            font-size: 0.7rem;
             font-weight: 600;
             text-align: center;
             letter-spacing: 0.02em;
         }
 
-        .teaser-pair .pair-img .img-label.baseline {
-            background: linear-gradient(transparent, rgba(0,0,0,0.5));
-            color: rgba(255,255,255,0.85);
-        }
-
-        .teaser-pair .pair-img .img-label.ours {
-            background: linear-gradient(transparent, rgba(20, 60, 180, 0.7));
-        }
-
-        .teaser-pair .pair-arrow {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            color: var(--color-accent);
-            background: var(--color-accent-soft);
-            width: 2px;
+        .teaser-strip-item .strip-label.ours {
+            background: linear-gradient(transparent, rgba(20, 60, 180, 0.65));
         }
 
         .teaser-caption {
@@ -313,7 +341,7 @@
             padding: 1rem 1.5rem;
             font-size: 0.9rem;
             color: var(--color-text-secondary);
-            max-width: 800px;
+            max-width: 860px;
             margin: 0 auto;
         }
 
@@ -687,7 +715,7 @@
                 font-size: 1.1rem;
             }
 
-            .teaser-grid {
+            .teaser-strip {
                 grid-template-columns: repeat(2, 1fr);
             }
 
@@ -771,52 +799,41 @@
 
 <!-- Teaser -->
 <div class="teaser">
-    <div class="teaser-grid">
-        <!-- Pair 1: Aesthetic reward -->
-        <div class="teaser-pair">
-            <div class="pair-header">Human Preference Rewards</div>
-            <div class="pair-images">
-                <div class="pair-img">
-                    <img src="static/images/aesthetic_abstract_unguided.png" alt="Unguided baseline">
-                    <div class="img-label baseline">FLUX.1-dev</div>
-                </div>
-                <div class="pair-img">
-                    <img src="static/images/aesthetic_abstract_fmtg.png" alt="FMTG guided">
-                    <div class="img-label ours">FMTG (Ours)</div>
-                </div>
-            </div>
+    <!-- Big hero: before → after -->
+    <div class="teaser-hero">
+        <div class="teaser-side">
+            <img src="static/images/aesthetic_abstract_unguided.png" alt="FLUX.1-dev unguided">
+            <span class="side-badge left">FLUX.1-dev</span>
         </div>
-        <!-- Pair 2: Compositional generation -->
-        <div class="teaser-pair">
-            <div class="pair-header">Text-to-Image Alignment &mdash; &ldquo;a red zebra&rdquo;</div>
-            <div class="pair-images">
-                <div class="pair-img">
-                    <img src="static/images/comp_zebra_base.png" alt="FLUX.1-dev fails compositionally">
-                    <div class="img-label baseline">FLUX.1-dev</div>
-                </div>
-                <div class="pair-img">
-                    <img src="static/images/comp_zebra_fmtg.png" alt="FMTG corrects composition">
-                    <div class="img-label ours">FMTG (Ours)</div>
-                </div>
-            </div>
+        <div class="teaser-side">
+            <img src="static/images/aesthetic_abstract_fmtg.png" alt="FMTG guided">
+            <span class="side-badge right">+ FMTG (Ours)</span>
         </div>
-        <!-- Pair 3: Inverse problem -->
-        <div class="teaser-pair">
-            <div class="pair-header">Inverse Problems &mdash; Super-Resolution</div>
-            <div class="pair-images">
-                <div class="pair-img">
-                    <img src="static/images/inv_measurement.png" alt="Degraded measurement">
-                    <div class="img-label baseline">Measurement</div>
-                </div>
-                <div class="pair-img">
-                    <img src="static/images/inv_fmtg_nfe12.png" alt="FMTG reconstruction">
-                    <div class="img-label ours">FMTG (NFE 12)</div>
-                </div>
-            </div>
+        <div class="teaser-arrow"><i class="fas fa-arrow-right"></i></div>
+    </div>
+
+    <!-- Strip: more examples across tasks -->
+    <div class="teaser-strip">
+        <div class="teaser-strip-item">
+            <img src="static/images/comp_zebra_base.png" alt="FLUX.1-dev: a red zebra">
+            <div class="strip-label">FLUX.1-dev</div>
+        </div>
+        <div class="teaser-strip-item">
+            <img src="static/images/comp_zebra_fmtg.png" alt="FMTG: a red zebra">
+            <div class="strip-label ours">FMTG &mdash; &ldquo;a red zebra&rdquo;</div>
+        </div>
+        <div class="teaser-strip-item">
+            <img src="static/images/inv_measurement.png" alt="Degraded measurement">
+            <div class="strip-label">Measurement</div>
+        </div>
+        <div class="teaser-strip-item">
+            <img src="static/images/inv_fmtg_nfe12.png" alt="FMTG reconstruction">
+            <div class="strip-label ours">FMTG (NFE 12)</div>
         </div>
     </div>
+
     <p class="teaser-caption">
-        <strong>FMTG</strong> uses pre-trained flow maps to guide generation at test time, achieving state-of-the-art results across human preference alignment, compositional text-to-image generation, and inverse problems &mdash; with up to <strong>70&times; fewer</strong> network evaluations than competing methods.
+        <strong>FMTG</strong> uses pre-trained flow maps to guide generation at test time &mdash; achieving state-of-the-art results across human preference alignment, compositional text-to-image generation, and inverse problems with up to <strong>70&times; fewer</strong> network evaluations.
     </p>
 </div>
 
