@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Guide Your Flow: Steering Flow Maps for Rapid Test-Time Alignment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --color-bg: #fafafa;
+            --color-surface: #ffffff;
+            --color-text: #1a1a2e;
+            --color-text-secondary: #4a4a6a;
+            --color-accent: #2d5af0;
+            --color-accent-soft: #e8eeff;
+            --color-accent-dark: #1a3cb8;
+            --color-border: #e2e2ee;
+            --color-highlight: #fff8e6;
+            --color-code-bg: #f4f4f8;
+            --font-serif: 'Source Serif 4', Georgia, serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --max-width: 980px;
+            --section-gap: 5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--color-text);
+            background: var(--color-bg);
+            line-height: 1.7;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Navigation ── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 250, 250, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--color-border);
+            padding: 0.75rem 0;
+        }
+
+        nav .nav-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        nav .nav-title {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--color-text);
+            text-decoration: none;
+        }
+
+        nav .nav-links {
+            display: flex;
+            gap: 1.75rem;
+            list-style: none;
+        }
+
+        nav .nav-links a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        nav .nav-links a:hover {
+            color: var(--color-accent);
+        }
+
+        /* ── Hero ── */
+        .hero {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 4rem 1.5rem 3rem;
+            text-align: center;
+        }
+
+        .venue-badge {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            background: var(--color-accent-soft);
+            padding: 0.35rem 1rem;
+            border-radius: 99px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: 2.85rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--color-text);
+            max-width: 820px;
+            margin: 0 auto 0.6rem;
+        }
+
+        .hero .subtitle {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            font-weight: 400;
+            color: var(--color-text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .authors {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.3rem 1.5rem;
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .authors span {
+            color: var(--color-text);
+            font-weight: 500;
+        }
+
+        .authors sup {
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+
+        .affiliations {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .hero-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.3rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-accent-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(45, 90, 240, 0.25);
+        }
+
+        .btn-outline {
+            background: var(--color-surface);
+            color: var(--color-text);
+            border: 1.5px solid var(--color-border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        /* ── Sections ── */
+        section {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem var(--section-gap);
+        }
+
+        section h2 {
+            font-family: var(--font-serif);
+            font-size: 1.85rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--color-accent);
+            display: inline-block;
+        }
+
+        section h3 {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        /* ── Teaser / Overview ── */
+        .teaser {
+            max-width: var(--max-width);
+            margin: 0 auto 1rem;
+            padding: 0 1.5rem;
+        }
+
+        .teaser-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .teaser-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .teaser-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .teaser-item .label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem 0.75rem 0.5rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        .teaser-caption {
+            text-align: center;
+            padding: 1rem 1.5rem;
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* ── Abstract ── */
+        .abstract-text {
+            font-family: var(--font-serif);
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: var(--color-text);
+            max-width: 780px;
+        }
+
+        /* ── Key Results Banner ── */
+        .results-banner {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin: 2.5rem 0 0;
+        }
+
+        .result-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            text-align: center;
+        }
+
+        .result-card .number {
+            font-family: var(--font-serif);
+            font-size: 2.75rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-card .unit {
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+
+        .result-card .desc {
+            font-size: 0.88rem;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ── Figure display ── */
+        .figure-block {
+            margin: 2rem 0;
+        }
+
+        .figure-block img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+        }
+
+        .figure-block.bordered img {
+            border: 1px solid var(--color-border);
+        }
+
+        .figure-caption {
+            margin-top: 0.75rem;
+            font-size: 0.88rem;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        .figure-caption strong {
+            color: var(--color-text);
+        }
+
+        /* ── Side-by-side figures ── */
+        .figure-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .figure-row.three-col {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .figure-cell img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+        }
+
+        .figure-cell .figure-caption {
+            text-align: center;
+        }
+
+        /* ── Method overview diagram ── */
+        .method-overview {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 14px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .hierarchy-box {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .hierarchy-level {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem;
+            border-radius: 10px;
+            border-left: 4px solid;
+        }
+
+        .hierarchy-level.exact {
+            background: #fef3f3;
+            border-color: #e74c3c;
+        }
+
+        .hierarchy-level.greedy {
+            background: #eef6ff;
+            border-color: var(--color-accent);
+        }
+
+        .hierarchy-level.dps {
+            background: #f0f0f5;
+            border-color: #8888aa;
+        }
+
+        .hierarchy-level .level-tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .hierarchy-level.exact .level-tag {
+            background: #fde2e2;
+            color: #c0392b;
+        }
+
+        .hierarchy-level.greedy .level-tag {
+            background: #dbe8ff;
+            color: #1a3cb8;
+        }
+
+        .hierarchy-level.dps .level-tag {
+            background: #e0e0ea;
+            color: #555577;
+        }
+
+        .hierarchy-level .level-text {
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .hierarchy-level .level-text strong {
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .hierarchy-arrow {
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 1.2rem;
+            padding: 0.25rem 0;
+        }
+
+        /* ── Algorithm box ── */
+        .algorithm-box {
+            background: var(--color-code-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            line-height: 2;
+            overflow-x: auto;
+        }
+
+        .algorithm-box .algo-title {
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .algo-keyword {
+            color: var(--color-accent);
+            font-weight: 500;
+        }
+
+        .algo-comment {
+            color: #888;
+            font-style: italic;
+        }
+
+        /* ── Tables ── */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 2rem 0;
+            border-radius: 10px;
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        table thead {
+            background: var(--color-code-bg);
+        }
+
+        table th {
+            padding: 0.75rem 0.75rem;
+            font-weight: 600;
+            text-align: center;
+            border-bottom: 2px solid var(--color-border);
+            white-space: nowrap;
+        }
+
+        table td {
+            padding: 0.6rem 0.75rem;
+            text-align: center;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        table th:first-child,
+        table td:first-child {
+            text-align: left;
+            font-weight: 500;
+            padding-left: 1rem;
+        }
+
+        table tr.ours {
+            background: var(--color-accent-soft);
+        }
+
+        table tr.ours td {
+            font-weight: 500;
+        }
+
+        table .best {
+            font-weight: 700;
+            color: var(--color-accent);
+        }
+
+        table .second {
+            text-decoration: underline;
+        }
+
+        table .group-header {
+            font-weight: 700;
+            background: var(--color-code-bg);
+        }
+
+        table caption {
+            text-align: left;
+            padding: 1rem 1rem 0.75rem;
+            font-size: 0.88rem;
+            color: var(--color-text-secondary);
+            caption-side: top;
+        }
+
+        /* ── Comparison slider ── */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .comparison-pair {
+            display: flex;
+            flex-direction: column;
+            background: var(--color-surface);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+        }
+
+        .comparison-pair img {
+            width: 100%;
+            display: block;
+        }
+
+        .comparison-pair .pair-labels {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+        }
+
+        /* ── BibTeX ── */
+        .bibtex-block {
+            background: var(--color-code-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            position: relative;
+            margin-top: 1rem;
+        }
+
+        .bibtex-block pre {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            line-height: 1.7;
+            overflow-x: auto;
+            color: var(--color-text);
+        }
+
+        .bibtex-block .copy-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            padding: 0.4rem 0.75rem;
+            font-size: 0.78rem;
+            font-weight: 500;
+            cursor: pointer;
+            color: var(--color-text-secondary);
+            transition: all 0.2s;
+        }
+
+        .bibtex-block .copy-btn:hover {
+            color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        /* ── Footer ── */
+        footer {
+            border-top: 1px solid var(--color-border);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--color-text-secondary);
+            margin-top: 2rem;
+        }
+
+        footer a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .teaser-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .results-banner {
+                grid-template-columns: 1fr;
+            }
+
+            .figure-row {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav .nav-links {
+                gap: 1rem;
+            }
+
+            nav .nav-links a {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .authors {
+                font-size: 0.9rem;
+            }
+
+            .hero-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav .nav-title {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <a href="#" class="nav-title">FMTG</a>
+        <ul class="nav-links">
+            <li><a href="#abstract">Abstract</a></li>
+            <li><a href="#method">Method</a></li>
+            <li><a href="#results">Results</a></li>
+            <li><a href="#citation">Citation</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+    <div class="venue-badge">ICML 2026</div>
+    <h1>How to Guide Your Flow</h1>
+    <p class="subtitle">Steering Flow Maps for Rapid Test-Time Alignment</p>
+
+    <div class="authors">
+        <span>Jerry Huang<sup>*1</sup></span>
+        <span>Justin Lin<sup>*1</sup></span>
+        <span>Sheel Shah<sup>1</sup></span>
+        <span>Kartik Nair<sup>1</sup></span>
+        <span>Nicholas M. Boffi<sup>1</sup></span>
+    </div>
+    <p class="affiliations"><sup>1</sup>Carnegie Mellon University &nbsp;&middot;&nbsp; <sup>*</sup>Equal contribution</p>
+
+    <div class="hero-links">
+        <a href="https://arxiv.org/abs/" class="btn-primary"><i class="fas fa-file-pdf"></i> Paper</a>
+        <a href="https://github.com/" class="btn-outline"><i class="fab fa-github"></i> Code</a>
+        <a href="#citation" class="btn-outline"><i class="fas fa-quote-right"></i> Cite</a>
+    </div>
+</header>
+
+<!-- Teaser -->
+<div class="teaser">
+    <div class="teaser-grid">
+        <div class="teaser-item">
+            <img src="static/images/inv_measurement.png" alt="Measurement">
+            <div class="label">Measurement</div>
+        </div>
+        <div class="teaser-item">
+            <img src="static/images/inv_fmtg_nfe12.png" alt="FMTG Reconstruction">
+            <div class="label">FMTG (NFE 12)</div>
+        </div>
+        <div class="teaser-item">
+            <img src="static/images/style_unguided.png" alt="Unguided">
+            <div class="label">Unguided</div>
+        </div>
+        <div class="teaser-item">
+            <img src="static/images/style_fmtg.png" alt="FMTG + Style">
+            <div class="label">FMTG + Style</div>
+        </div>
+    </div>
+    <p class="teaser-caption">
+        <strong>Flow Map Trajectory Guidance (FMTG)</strong> enables principled guidance of flow-based generative models with as few as 3 network evaluations.
+        From inverse problems (left) to artistic style transfer (right), FMTG achieves state-of-the-art results with an order of magnitude fewer compute steps than existing methods.
+    </p>
+</div>
+
+<!-- Abstract -->
+<section id="abstract">
+    <h2>Abstract</h2>
+    <div class="abstract-text">
+        <p>
+            In generative modeling, we often wish to produce samples that satisfy a user-specified reward such as measurement consistency, aesthetic quality, or alignment with human intent, a problem known as inference-time guidance. While flow-based models enable high-quality generation, existing guidance methods either require expensive multi-particle, many-step schemes to sample from a reward-tilted distribution or rely on heuristic approximations. To design efficient algorithms, we reformulate guidance as a <em>deterministic optimal control</em> problem. We find that the <em>flow map</em> arises naturally in the optimal solution, and that many existing flow-based guidance methods are best understood as coarse approximations that replace it with a single Euler step. Rather than relying on these approximations, we propose <strong>Flow Map Trajectory Guidance (FMTG)</strong>: a principled framework that uses the flow map to both integrate and guide flow, enabling training-free alignment in just a few network evaluations. We demonstrate FMTG at text-to-image scale using a FLUX.1-distilled flow map, showing that it matches or surpasses baselines across inverse problems and reward-guided image generation with up to 10&times; and 70&times; fewer function evaluations, respectively.
+        </p>
+    </div>
+
+    <div class="results-banner">
+        <div class="result-card">
+            <div class="number">3 <span class="unit">NFEs</span></div>
+            <div class="desc">Compelling image reconstructions with just 3 network function evaluations</div>
+        </div>
+        <div class="result-card">
+            <div class="number">10<span class="unit">&times;</span></div>
+            <div class="desc">Fewer NFEs than baselines on inverse problems (super-resolution, inpainting, deblurring)</div>
+        </div>
+        <div class="result-card">
+            <div class="number">70<span class="unit">&times;</span></div>
+            <div class="desc">Fewer NFEs than baselines on reward-guided generation (GenEval 0.80)</div>
+        </div>
+    </div>
+</section>
+
+<!-- Method -->
+<section id="method">
+    <h2>Method</h2>
+    <p>
+        FMTG formulates inference-time guidance as deterministic optimal control. Instead of approximating sampling from a reward-tilted distribution, we directly optimize a trajectory to maximize reward while staying close to the learned generative process. The key insight is that the <em>flow map</em>&mdash;the solution operator of the probability flow&mdash;naturally appears in the optimal guidance signal.
+    </p>
+
+    <!-- Hierarchy of approximations -->
+    <h3>A Hierarchy of Approximations</h3>
+    <p>
+        Our theoretical analysis reveals that existing guidance methods form a hierarchy, with FMTG's greedy guidance occupying a principled middle ground between exact optimal control and heuristic single-step methods like DPS.
+    </p>
+
+    <div class="method-overview">
+        <div class="hierarchy-box">
+            <div class="hierarchy-level exact">
+                <span class="level-tag">Exact-Optimal</span>
+                <div class="level-text">
+                    <strong>Intractable optimal control</strong>
+                    Requires access to the <em>controlled</em> flow map, creating a circular dependency. Theoretically ideal but infeasible to compute directly.
+                </div>
+            </div>
+            <div class="hierarchy-arrow"><i class="fas fa-arrow-down"></i> substitute uncontrolled flow map</div>
+            <div class="hierarchy-level greedy">
+                <span class="level-tag">FMTG (Ours)</span>
+                <div class="level-text">
+                    <strong>Greedy-optimal guidance</strong>
+                    Replaces the controlled flow map with the uncontrolled one. Globally optimal in the small-&lambda; limit and the optimal greedy correction for any &lambda;. Accurate to O(&lambda;&sup2;).
+                </div>
+            </div>
+            <div class="hierarchy-arrow"><i class="fas fa-arrow-down"></i> substitute denoiser estimate</div>
+            <div class="hierarchy-level dps">
+                <span class="level-tag">DPS / FlowDPS</span>
+                <div class="level-text">
+                    <strong>Single-step heuristic</strong>
+                    Further approximates the flow map with a single Euler step (the denoiser). Widely used but heuristic&mdash;no principled sense in which it approximates the reward-tilted distribution.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Algorithm -->
+    <h3>Algorithm</h3>
+    <div class="algorithm-box">
+        <div class="algo-title">Algorithm 1: Flow Map Trajectory Guidance (FMTG)</div>
+        <span class="algo-keyword">Require:</span> Flow map <em>X</em>, reward <em>r</em>, time grid {t<sub>k</sub>}, guidance strength &lambda;<sub>t</sub>(x), gradient steps n<sub>opt</sub><br>
+        1: &nbsp;Sample x<sub>0</sub> ~ &rho;<sub>0</sub><br>
+        2: &nbsp;<span class="algo-keyword">for</span> k = 0, ..., N-1 <span class="algo-keyword">do</span><br>
+        3: &nbsp;&nbsp;&nbsp;x &larr; X<sub>t<sub>k</sub>, t<sub>k+1</sub></sub>(x<sub>t<sub>k</sub></sub>) <span class="algo-comment">&nbsp;{Flow map step}</span><br>
+        4: &nbsp;&nbsp;&nbsp;<span class="algo-keyword">for</span> j = 0, ..., n<sub>opt</sub> - 1 <span class="algo-keyword">do</span><br>
+        5: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;u &larr; &nabla;X<sub>t<sub>k+1</sub>,1</sub>(x)<sup>T</sup>&nabla;r(X<sub>t<sub>k+1</sub>,1</sub>(x)) <span class="algo-comment">&nbsp;{Jacobian gradient}</span><br>
+        6: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x &larr; x + (&Delta;t<sub>k</sub> / n<sub>opt</sub>) &lambda;<sub>t<sub>k+1</sub></sub>(x) &middot; u <span class="algo-comment">&nbsp;{Gradient step}</span><br>
+        7: &nbsp;&nbsp;&nbsp;<span class="algo-keyword">end for</span><br>
+        8: &nbsp;<span class="algo-keyword">end for</span><br>
+        9: &nbsp;<span class="algo-keyword">return</span> x<sub>1</sub>
+    </div>
+
+    <!-- Gradient options figure -->
+    <h3>Gradient Options: Jacobian vs. Euclidean</h3>
+    <div class="figure-row">
+        <div class="figure-cell">
+            <img src="static/images/manifold_blue.png" alt="Tangent space projection">
+            <p class="figure-caption"><strong>Tangent space projection.</strong> The flow map Jacobian projects reward gradients onto the data manifold's tangent space, keeping the trajectory on-manifold (FMTG-J). The Euclidean gradient may leave the manifold (FMTG-E).</p>
+        </div>
+        <div class="figure-cell">
+            <img src="static/images/bear_qualitative.png" alt="Jacobian vs Euclidean">
+            <p class="figure-caption"><strong>Qualitative comparison.</strong> FMTG-E achieves higher raw reward (r++) but produces off-manifold artifacts, while FMTG-J stays on-manifold with natural image quality (r+).</p>
+        </div>
+    </div>
+</section>
+
+<!-- Results -->
+<section id="results">
+    <h2>Results</h2>
+    <p>
+        We evaluate FMTG on reward functions of varying complexity: L<sub>2</sub> reconstruction losses for linear inverse problems, VGG-based style losses, neural-network human preference rewards, and vision-language model rewards for text-to-image generation.
+    </p>
+
+    <!-- Inverse Problems -->
+    <h3>Inverse Problems</h3>
+    <p>
+        FMTG solves latent inverse problems at remarkably low NFEs, achieving competitive or superior quality with 2&ndash;10&times; fewer NFEs than FlowDPS, FlowChef, and DPS.
+    </p>
+
+    <div class="figure-block">
+        <img src="static/images/paper_fig_3row_with_gt.png" alt="Inverse problems qualitative results">
+        <p class="figure-caption"><strong>Latent inverse problems.</strong> FMTG reconstructs super-resolution (4&times;), motion deblur, and box inpainting from degraded measurements at NFE 3 and 12, matching or exceeding baselines that use many more network evaluations.</p>
+    </div>
+
+    <!-- Quantitative table -->
+    <div class="table-wrapper">
+        <table>
+            <caption><strong>Quantitative comparison on linear inverse problems.</strong> PSNR, SSIM, LPIPS, FID, and KID across super-resolution (4&times;), motion deblurring, and inpainting. <strong>Bold</strong> = best, <u>underline</u> = second best. Results averaged over 1000 images.</caption>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th colspan="3">Super-Resolution</th>
+                    <th colspan="3">Motion Deblur</th>
+                    <th colspan="3">Inpainting</th>
+                </tr>
+                <tr>
+                    <th>Method</th>
+                    <th>PSNR&uarr;</th><th>LPIPS&darr;</th><th>FID&darr;</th>
+                    <th>PSNR&uarr;</th><th>LPIPS&darr;</th><th>FID&darr;</th>
+                    <th>PSNR&uarr;</th><th>LPIPS&darr;</th><th>FID&darr;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="group-header"><td colspan="10">AFHQ-Dog</td></tr>
+                <tr><td>DPS</td><td>18.06</td><td>.503</td><td>59.99</td><td>16.68</td><td>.547</td><td>58.59</td><td>17.15</td><td>.540</td><td>95.30</td></tr>
+                <tr><td>FlowChef</td><td>26.87</td><td>.243</td><td>43.29</td><td>26.75</td><td>.250</td><td>38.58</td><td>24.12</td><td>.160</td><td>35.10</td></tr>
+                <tr><td>FlowDPS</td><td>27.02</td><td>.250</td><td>34.58</td><td>26.07</td><td>.279</td><td>36.77</td><td>26.11</td><td>.239</td><td>44.10</td></tr>
+                <tr class="ours"><td>FMTG-E (ours)</td><td><u>27.12</u></td><td class="best">.180</td><td class="best">25.48</td><td><u>27.26</u></td><td class="best">.177</td><td class="best">23.12</td><td><u>26.12</u></td><td class="best">.126</td><td class="best">24.73</td></tr>
+                <tr class="ours"><td>FMTG-J (ours)</td><td class="best">27.39</td><td><u>.193</u></td><td><u>29.51</u></td><td class="best">27.36</td><td><u>.204</u></td><td><u>24.43</u></td><td class="best">26.71</td><td><u>.158</u></td><td><u>31.20</u></td></tr>
+                <tr class="group-header"><td colspan="10">FFHQ</td></tr>
+                <tr><td>DPS</td><td>18.74</td><td>.530</td><td>119.30</td><td>20.20</td><td>.483</td><td>127.91</td><td>18.93</td><td>.486</td><td>137.36</td></tr>
+                <tr><td>FlowChef</td><td>26.71</td><td>.237</td><td>117.04</td><td>24.53</td><td>.296</td><td>109.30</td><td>25.41</td><td>.164</td><td>76.52</td></tr>
+                <tr><td>FlowDPS</td><td><u>27.70</u></td><td>.205</td><td><u>61.85</u></td><td>26.85</td><td>.233</td><td>64.55</td><td>27.90</td><td>.195</td><td>73.30</td></tr>
+                <tr class="ours"><td>FMTG-E (ours)</td><td>27.53</td><td><u>.171</u></td><td>62.63</td><td><u>28.10</u></td><td class="best">.153</td><td class="best">38.52</td><td><u>28.66</u></td><td class="best">.103</td><td class="best">35.15</td></tr>
+                <tr class="ours"><td>FMTG-J (ours)</td><td class="best">28.23</td><td class="best">.154</td><td class="best">55.99</td><td class="best">28.62</td><td><u>.155</u></td><td><u>41.33</u></td><td class="best">29.48</td><td><u>.112</u></td><td><u>43.99</u></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- NFE trade-off plots -->
+    <div class="figure-block bordered">
+        <img src="static/images/afhq_lpips_fid_grid.png" alt="LPIPS vs FID trade-off on AFHQ">
+        <p class="figure-caption"><strong>LPIPS vs. FID trade-off on AFHQ.</strong> FMTG-E achieves notably better performance on distortion and perception metrics in the low NFE regime, matching or outperforming baselines using 2&ndash;10&times; more NFEs.</p>
+    </div>
+
+    <!-- Style Guidance -->
+    <h3>Style Guidance</h3>
+    <p>
+        FMTG steers generation toward a target visual style while preserving semantic content, using the Frobenius norm between Gram matrices of VGG features as a style reward.
+    </p>
+
+    <div class="figure-block">
+        <img src="static/images/style2.png" alt="Style guidance results">
+        <p class="figure-caption"><strong>Style guidance.</strong> FMTG generates images in diverse artistic styles (Starry Night, Retro Poster, JoJo Manga, Mosaic) with high precision, producing faithful style transfer at NFE 6 and 20.</p>
+    </div>
+
+    <!-- GenEval -->
+    <h3>Text-to-Image Alignment (GenEval)</h3>
+    <p>
+        Using a linear combination of human preference reward models (ImageReward, HPSv2, PickScore, CLIP), FMTG achieves a GenEval score of <strong>0.80</strong> at NFE 100&mdash;matching the state of the art with a 70&times; reduction in NFEs.
+    </p>
+
+    <div class="figure-row">
+        <div class="figure-cell">
+            <img src="static/images/geneval_wide_v2.png" alt="GenEval qualitative results">
+            <p class="figure-caption"><strong>GenEval qualitative results.</strong> FLUX.1-dev (top) vs. FMTG (bottom). FMTG corrects color attribution, missing objects, and spatial relationship errors.</p>
+        </div>
+        <div class="figure-cell">
+            <img src="static/images/pareto_geneval.png" alt="GenEval Pareto frontier">
+            <p class="figure-caption"><strong>GenEval Pareto frontier.</strong> FMTG-J achieves 0.80 GenEval at NFE 100, matching FMTT (NFE 1400) and outperforming ReNO (NFE 58) and Best-of-N (NFE 400).</p>
+        </div>
+    </div>
+
+    <!-- GenEval table -->
+    <div class="table-wrapper">
+        <table>
+            <caption><strong>GenEval accuracy for reward-guided generation.</strong> All methods use the same FLUX.1-dev flow map backbone.</caption>
+            <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>NFE &darr;</th>
+                    <th>GenEval &uarr;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>FLUX.1-dev (unguided)</td><td>50</td><td>0.662</td></tr>
+                <tr><td>Best-of-N (reward-selected)</td><td>400</td><td>0.751</td></tr>
+                <tr><td>ReNO (seed optimization)</td><td>58</td><td>0.716</td></tr>
+                <tr><td>FMTT</td><td>1400</td><td>0.771</td></tr>
+                <tr class="ours"><td>FMTG-E (ours)</td><td>30</td><td>0.751</td></tr>
+                <tr class="ours"><td>FMTG-E (ours)</td><td>60</td><td>0.766</td></tr>
+                <tr class="ours"><td>FMTG-J (ours)</td><td>20</td><td>0.770</td></tr>
+                <tr class="ours"><td>FMTG-J (ours)</td><td class="best">100</td><td class="best">0.800</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- VLM Guidance -->
+    <h3>VLM Reward Guidance</h3>
+    <p>
+        Beyond standard rewards, FMTG leverages complex vision-language model (VLM) rewards to steer generation toward detailed, compositional prompts that base models struggle with.
+    </p>
+
+    <div class="figure-block">
+        <img src="static/images/vlm3.png" alt="VLM reward guidance results">
+        <p class="figure-caption"><strong>VLM reward guidance.</strong> Unguided FLUX generations across four seeds (left) fail to capture fine-grained details in complex compositional prompts. FMTG (right, green border) steers generation toward prompt-faithful outputs using a VLM-based reward.</p>
+    </div>
+
+    <!-- Early Stopping Analysis -->
+    <h3>Analysis: Early Stopping</h3>
+    <p>
+        Early stopping&mdash;applying guidance only for t &in; [0, t<sub>stop</sub>] then running the uncontrolled flow to completion&mdash;is a key design choice. It controls mode collapse and recovers the polynomial variance scaling of exact optimal control or reward tilting.
+    </p>
+
+    <div class="figure-block bordered">
+        <img src="static/images/es_progression.png" alt="Early stopping progression">
+        <p class="figure-caption"><strong>Effect of early stopping.</strong> Progressive effect of early stopping on guided generation. Without early stopping, aggressive guidance can lead to mode collapse; with it, FMTG produces diverse, high-quality outputs.</p>
+    </div>
+
+    <!-- Reward complexity -->
+    <h3>Jacobian vs. Euclidean: When to Use Which</h3>
+
+    <div class="table-wrapper">
+        <table>
+            <caption><strong>Reward complexity and gradient choice.</strong> As reward model complexity increases, FMTG-J becomes increasingly preferred over FMTG-E, consistent with the tangent-space projection (Proposition 3.1).</caption>
+            <thead>
+                <tr>
+                    <th>Reward</th>
+                    <th>Model Size</th>
+                    <th>Best Variant</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>L<sub>2</sub> reconstruction</td><td>&mdash;</td><td>FMTG-E</td></tr>
+                <tr><td>VGG Gram style</td><td>144M</td><td>Comparable</td></tr>
+                <tr><td>Reward ensemble</td><td>3.4B</td><td>FMTG-J</td></tr>
+                <tr><td>Skywork VLM</td><td>7B</td><td>FMTG-J</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Citation -->
+<section id="citation">
+    <h2>Citation</h2>
+    <p>If you find this work useful, please cite our paper:</p>
+    <div class="bibtex-block">
+        <button class="copy-btn" onclick="copyBibtex()"><i class="fas fa-copy"></i> Copy</button>
+        <pre><code>@inproceedings{huang2026how,
+  title={How to Guide Your Flow: Steering Flow Maps for Rapid Test-Time Alignment},
+  author={Huang, Jerry and Lin, Justin and Shah, Sheel and Nair, Kartik and Boffi, Nicholas M.},
+  booktitle={Proceedings of the 43rd International Conference on Machine Learning},
+  year={2026},
+  series={PMLR},
+  volume={306}
+}</code></pre>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>
+        Flow Map Trajectory Guidance (FMTG) &middot;
+        <a href="https://arxiv.org/abs/">arXiv</a> &middot;
+        <a href="https://github.com/">GitHub</a>
+    </p>
+    <p style="margin-top: 0.5rem;">Website template by the authors. &copy; 2026.</p>
+</footer>
+
+<script>
+function copyBibtex() {
+    const bibtex = document.querySelector('.bibtex-block code').textContent;
+    navigator.clipboard.writeText(bibtex).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+        }, 2000);
+    });
+}
+</script>
+
+</body>
+</html>
