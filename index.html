@@ -966,13 +966,10 @@
 
     <!-- Gradient options figure -->
     <h3>Gradient Options: Jacobian vs. Euclidean</h3>
-    <div class="figure-block bordered">
-        <img src="static/images/manifold_j_vs_e.png" alt="Tangent space projection" style="background: #fff;">
-        <p class="figure-caption"><strong>Comparison of gradient options (top).</strong> The flow map Jacobian projects the reward gradient &nabla;r onto the tangent space T<sub>x<sub>1</sub></sub>M, keeping the guided trajectory on-manifold (blue, FMTG-J). The Euclidean gradient follows the full &nabla;r and may leave the manifold (purple, FMTG-E).</p>
-    </div>
     <div class="figure-block">
+        <img src="static/images/manifold_j_vs_e.png" alt="Comparison of gradient options" style="background: #fff; margin-bottom: 0.5rem;">
         <img src="static/images/bear_qualitative.png" alt="Jacobian vs Euclidean qualitative">
-        <p class="figure-caption"><strong>Qualitative comparison (bottom).</strong> On a whitening reward, FMTG-E achieves higher raw reward (r++) but produces off-manifold artifacts, while FMTG-J stays on-manifold with natural image quality (r+).</p>
+        <p class="figure-caption"><strong>Comparison of gradient options.</strong> (Top) The flow map Jacobian (blue, FMTG-J) keeps the guided trajectory on the data manifold, while the Euclidean gradient (red, FMTG-E) may leave the manifold. (Bottom) Qualitative comparison on a whitening reward: FMTG-E achieves higher raw reward (r++) but produces off-manifold artifacts, while FMTG-J stays on-manifold with natural image quality (r+).</p>
     </div>
 </section>
 
