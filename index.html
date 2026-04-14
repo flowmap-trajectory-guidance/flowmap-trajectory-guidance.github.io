@@ -27,6 +27,19 @@
             --section-gap: 5rem;
         }
 
+        body.dark-mode {
+            --color-bg: #111118;
+            --color-surface: #1a1a24;
+            --color-text: #e4e4ed;
+            --color-text-secondary: #a0a0b8;
+            --color-accent: #6b8aff;
+            --color-accent-soft: #1e2540;
+            --color-accent-dark: #8da4ff;
+            --color-border: #2a2a3a;
+            --color-highlight: #1c1a0e;
+            --color-code-bg: #1a1a26;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -44,52 +57,42 @@
             line-height: 1.7;
             font-size: 16px;
             -webkit-font-smoothing: antialiased;
+            transition: background 0.3s, color 0.3s;
         }
 
-        /* ── Navigation ── */
-        nav {
-            position: sticky;
+        /* ── Sticky hero links ── */
+        .hero-links.sticky {
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 100;
-            background: rgba(250, 250, 250, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--color-border);
-            padding: 0.75rem 0;
+            background: transparent;
+            padding: 0.65rem 1.5rem;
+            justify-content: center;
         }
 
-        nav .nav-inner {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        body.dark-mode .hero-links.sticky {
+            background: transparent;
         }
 
-        nav .nav-title {
-            font-family: var(--font-sans);
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: var(--color-text);
-            text-decoration: none;
-        }
-
-        nav .nav-links {
-            display: flex;
-            gap: 1.75rem;
-            list-style: none;
-        }
-
-        nav .nav-links a {
-            font-size: 0.875rem;
-            font-weight: 500;
+        .dark-mode-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1.5rem;
+            z-index: 200;
+            background: none;
+            border: 1.5px solid var(--color-border);
+            border-radius: 8px;
+            padding: 0.35rem 0.65rem;
+            cursor: pointer;
+            font-size: 0.9rem;
             color: var(--color-text-secondary);
-            text-decoration: none;
-            transition: color 0.2s;
+            transition: all 0.2s;
         }
 
-        nav .nav-links a:hover {
+        .dark-mode-toggle:hover {
+            border-color: var(--color-accent);
             color: var(--color-accent);
         }
 
@@ -97,7 +100,7 @@
         .hero {
             max-width: var(--max-width);
             margin: 0 auto;
-            padding: 4rem 1.5rem 3rem;
+            padding: 2.5rem 1.5rem 2rem;
             text-align: center;
         }
 
@@ -568,13 +571,48 @@
             overflow-x: auto;
         }
 
+        .algorithm-box .algo-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
         .algorithm-box .algo-title {
             font-family: var(--font-sans);
             font-weight: 700;
             font-size: 0.95rem;
-            margin-bottom: 0.75rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--color-border);
+        }
+
+        .algo-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .algo-tab {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.3rem 0.85rem;
+            border: 1.5px solid var(--color-border);
+            border-radius: 6px;
+            background: none;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .algo-tab:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+        }
+
+        .algo-tab.active {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: #fff;
         }
 
         .algo-keyword {
@@ -790,27 +828,14 @@
                 align-items: center;
             }
 
-            nav .nav-title {
-                font-size: 0.9rem;
-            }
         }
     </style>
 </head>
 <body>
 
-<!-- Navigation -->
-<nav>
-    <div class="nav-inner">
-        <a href="#" class="nav-title">FMTG</a>
-        <ul class="nav-links">
-            <li><a href="#abstract">Abstract</a></li>
-            <li><a href="#method">Method</a></li>
-            <li><a href="#results">Results</a></li>
-            <li><a href="#citation">Citation</a></li>
-            <li><a href="blog/">Blog</a></li>
-        </ul>
-    </div>
-</nav>
+<button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+    <i class="fa-solid fa-moon"></i>
+</button>
 
 <!-- Hero -->
 <header class="hero">
@@ -826,6 +851,7 @@
     </div>
     <p class="affiliations"><sup>1</sup>Carnegie Mellon University &nbsp;&middot;&nbsp; <sup>*</sup>Equal contribution</p>
 
+    <div id="hero-links-sentinel"></div>
     <div class="hero-links">
         <a href="https://arxiv.org/abs/" class="btn-primary"><i class="fas fa-file-pdf"></i> Paper</a>
         <a href="https://github.com/" class="btn-outline"><i class="fab fa-github"></i> Code</a>
@@ -885,7 +911,7 @@
 
 <!-- Abstract -->
 <section id="abstract">
-    <h2>Abstract</h2>
+
     <div class="abstract-text">
         <p>
             In generative modeling, we often wish to produce samples that satisfy a user-specified reward such as measurement consistency, aesthetic quality, or alignment with human intent, a problem known as inference-time guidance. While flow-based models enable high-quality generation, existing guidance methods either require expensive multi-particle, many-step schemes to sample from a reward-tilted distribution or rely on heuristic approximations. To design efficient algorithms, we reformulate guidance as a <em>deterministic optimal control</em> problem. We find that the <em>flow map</em> arises naturally in the optimal solution, and that many existing flow-based guidance methods are best understood as coarse approximations that replace it with a single Euler step. Rather than relying on these approximations, we propose <strong>Flow Map Trajectory Guidance (FMTG)</strong>: a principled framework that uses the flow map to both integrate and guide flow, enabling training-free alignment in just a few network evaluations. We demonstrate FMTG at text-to-image scale using a FLUX.1-distilled flow map, showing that it matches or surpasses baselines across inverse problems and reward-guided image generation with up to 10&times; and 70&times; fewer function evaluations, respectively.
@@ -952,13 +978,19 @@
     <!-- Algorithm -->
     <h3>Algorithm</h3>
     <div class="algorithm-box">
-        <div class="algo-title">Algorithm 1: Flow Map Trajectory Guidance (FMTG)</div>
+        <div class="algo-header">
+            <div class="algo-title">Algorithm 1: Flow Map Trajectory Guidance (FMTG)</div>
+            <div class="algo-tabs">
+                <button class="algo-tab active" data-variant="j">FMTG-J</button>
+                <button class="algo-tab" data-variant="e">FMTG-E</button>
+            </div>
+        </div>
         <span class="algo-keyword">Require:</span> Flow map <em>X</em>, reward <em>r</em>, time grid {t<sub>k</sub>}, guidance strength &lambda;<sub>t</sub>(x), gradient steps n<sub>opt</sub><br>
         1: &nbsp;Sample x<sub>0</sub> ~ &rho;<sub>0</sub><br>
         2: &nbsp;<span class="algo-keyword">for</span> k = 0, ..., N-1 <span class="algo-keyword">do</span><br>
         3: &nbsp;&nbsp;&nbsp;x &larr; X<sub>t<sub>k</sub>, t<sub>k+1</sub></sub>(x<sub>t<sub>k</sub></sub>) <span class="algo-comment">&nbsp;{Flow map step}</span><br>
         4: &nbsp;&nbsp;&nbsp;<span class="algo-keyword">for</span> j = 0, ..., n<sub>opt</sub> - 1 <span class="algo-keyword">do</span><br>
-        5: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;u &larr; &nabla;X<sub>t<sub>k+1</sub>,1</sub>(x)<sup>T</sup>&nabla;r(X<sub>t<sub>k+1</sub>,1</sub>(x)) <span class="algo-comment">&nbsp;{Jacobian gradient}</span><br>
+        <span id="algo-line-j">5: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;u &larr; &nabla;X<sub>t<sub>k+1</sub>,1</sub>(x)<sup>T</sup>&nabla;r(X<sub>t<sub>k+1</sub>,1</sub>(x)) <span class="algo-comment">&nbsp;{Jacobian gradient}</span></span><span id="algo-line-e" style="display:none">5: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;u &larr; &nabla;r(X<sub>t<sub>k+1</sub>,1</sub>(x)) <span class="algo-comment">&nbsp;{Euclidean gradient}</span></span><br>
         6: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x &larr; x + (&Delta;t<sub>k</sub> / n<sub>opt</sub>) &lambda;<sub>t<sub>k+1</sub></sub>(x) &middot; u <span class="algo-comment">&nbsp;{Gradient step}</span><br>
         7: &nbsp;&nbsp;&nbsp;<span class="algo-keyword">end for</span><br>
         8: &nbsp;<span class="algo-keyword">end for</span><br>
@@ -1162,6 +1194,47 @@
 </footer>
 
 <script>
+// ── Dark Mode Toggle ──
+const toggle = document.getElementById('darkModeToggle');
+const iconEl = toggle.querySelector('i');
+function isDark() { return document.body.classList.contains('dark-mode'); }
+function setDarkMode(v) {
+    document.body.classList.toggle('dark-mode', v);
+    iconEl.className = v ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    localStorage.setItem('blog-dark-mode', v);
+}
+toggle.addEventListener('click', () => setDarkMode(!isDark()));
+if (localStorage.getItem('blog-dark-mode') === 'true') setDarkMode(true);
+
+// Sticky hero links on scroll
+const sentinel = document.getElementById('hero-links-sentinel');
+const heroLinks = document.querySelector('.hero-links');
+const placeholder = document.createElement('div');
+placeholder.style.display = 'none';
+heroLinks.parentNode.insertBefore(placeholder, heroLinks.nextSibling);
+
+new IntersectionObserver(([entry]) => {
+    const stick = !entry.isIntersecting;
+    heroLinks.classList.toggle('sticky', stick);
+    if (stick) {
+        placeholder.style.display = 'block';
+        placeholder.style.height = heroLinks.offsetHeight + 'px';
+    } else {
+        placeholder.style.display = 'none';
+    }
+}, { threshold: 0, rootMargin: '-40px 0px 0px 0px' }).observe(sentinel);
+
+// ── Algorithm tab switching ──
+document.querySelectorAll('.algo-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('.algo-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const isJ = tab.dataset.variant === 'j';
+        document.getElementById('algo-line-j').style.display = isJ ? '' : 'none';
+        document.getElementById('algo-line-e').style.display = isJ ? 'none' : '';
+    });
+});
+
 function copyBibtex() {
     const bibtex = document.querySelector('.bibtex-block code').textContent;
     navigator.clipboard.writeText(bibtex).then(() => {
