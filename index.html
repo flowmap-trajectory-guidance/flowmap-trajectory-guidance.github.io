@@ -726,6 +726,109 @@
             color: var(--color-text-secondary);
         }
 
+        /* ── Aesthetic Carousel ── */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            margin: 1.5rem 0;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.4s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .carousel-slide .slide-cell {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-slide .slide-cell img {
+            width: 100%;
+            display: block;
+        }
+
+        .carousel-slide .slide-label {
+            position: absolute;
+            bottom: 0.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 0.2rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+
+        .carousel-slide .slide-prompt {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            color: var(--color-text-secondary);
+            font-style: italic;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-60%);
+            background: rgba(0, 0, 0, 0.45);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 2.2rem;
+            height: 2.2rem;
+            font-size: 0.95rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .carousel-btn:hover { background: rgba(0, 0, 0, 0.7); }
+        .carousel-btn.prev { left: 0.5rem; }
+        .carousel-btn.next { right: 0.5rem; }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.35rem;
+            padding: 0.6rem 0;
+            background: var(--color-surface);
+        }
+
+        .carousel-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            border: none;
+            background: var(--color-border);
+            cursor: pointer;
+            padding: 0;
+            transition: background 0.2s;
+        }
+
+        .carousel-dot.active {
+            background: var(--color-accent);
+        }
+
         /* ── BibTeX ── */
         .bibtex-block {
             background: var(--color-code-bg);
@@ -1000,7 +1103,7 @@
     <!-- Gradient options figure -->
     <h3>Gradient Options: Jacobian vs. Euclidean</h3>
     <div class="figure-block">
-        <img src="static/images/manifold_j_vs_e.png" alt="Comparison of gradient options" style="background: #fff; margin-bottom: 0.5rem;">
+        <img src="static/images/manifold_jvse.svg" alt="Comparison of gradient options" style="background: #fff; margin-bottom: 0.5rem;">
         <img src="static/images/bear_qualitative.png" alt="Jacobian vs Euclidean qualitative">
         <p class="figure-caption"><strong>Comparison of gradient options.</strong> (Top) The flow map Jacobian (blue, FMTG-J) keeps the guided trajectory on the data manifold, while the Euclidean gradient (red, FMTG-E) may leave the manifold. (Bottom) Qualitative comparison on a whitening reward: FMTG-E achieves higher raw reward (r++) but produces off-manifold artifacts, while FMTG-J stays on-manifold with natural image quality (r+).</p>
     </div>
@@ -1029,6 +1132,76 @@
             <p class="figure-caption"><strong>(b) Human preference reward guidance.</strong> FMTG steers generation toward higher aesthetic quality with increasing NFE, producing visually compelling results at NFE 6 and 10.</p>
         </div>
     </div>
+
+    <!-- Aesthetic Enhancement Carousel -->
+    <div class="carousel-container" id="aestheticCarousel">
+        <button class="carousel-btn prev" onclick="carouselPrev()"><i class="fas fa-chevron-left"></i></button>
+        <button class="carousel-btn next" onclick="carouselNext()"><i class="fas fa-chevron-right"></i></button>
+        <div class="carousel-track" id="carouselTrack">
+            <div class="carousel-slide">
+                <div class="slide-cell"><img src="static/images/aesthetic/v1_000_unguided.png" alt="Unguided"><span class="slide-label">FLUX.1-dev</span></div>
+                <div class="slide-cell"><img src="static/images/aesthetic/v1_000_fmtg.png" alt="FMTG"><span class="slide-label">+ FMTG</span></div>
+                <div class="slide-prompt">A woman dissolving into cherry blossom petals, soft pastel tones, ethereal glow</div>
+            </div>
+            <div class="carousel-slide">
+                <div class="slide-cell"><img src="static/images/aesthetic/v1_006_unguided.png" alt="Unguided"><span class="slide-label">FLUX.1-dev</span></div>
+                <div class="slide-cell"><img src="static/images/aesthetic/v1_006_fmtg.png" alt="FMTG"><span class="slide-label">+ FMTG</span></div>
+                <div class="slide-prompt">A Japanese garden at dawn, ink illustration, minimal lines, sumi-e style</div>
+            </div>
+            <div class="carousel-slide">
+                <div class="slide-cell"><img src="static/images/aesthetic/v1_007_unguided.png" alt="Unguided"><span class="slide-label">FLUX.1-dev</span></div>
+                <div class="slide-cell"><img src="static/images/aesthetic/v1_007_fmtg.png" alt="FMTG"><span class="slide-label">+ FMTG</span></div>
+                <div class="slide-prompt">Forest landscape, watercolor wash, soft edges, light bleeding into paper, autumn colors</div>
+            </div>
+            <div class="carousel-slide">
+                <div class="slide-cell"><img src="static/images/aesthetic/v1_009_unguided.png" alt="Unguided"><span class="slide-label">FLUX.1-dev</span></div>
+                <div class="slide-cell"><img src="static/images/aesthetic/v1_009_fmtg.png" alt="FMTG"><span class="slide-label">+ FMTG</span></div>
+                <div class="slide-prompt">An ancient temple overgrown with vines, gouache matte illustration, warm amber light</div>
+            </div>
+            <div class="carousel-slide">
+                <div class="slide-cell"><img src="static/images/aesthetic/v1_014_unguided.png" alt="Unguided"><span class="slide-label">FLUX.1-dev</span></div>
+                <div class="slide-cell"><img src="static/images/aesthetic/v1_014_fmtg.png" alt="FMTG"><span class="slide-label">+ FMTG</span></div>
+                <div class="slide-prompt">A curious orange fox and a fluffy white rabbit in a lush meadow, golden hour</div>
+            </div>
+            <div class="carousel-slide">
+                <div class="slide-cell"><img src="static/images/aesthetic/v2_004_unguided.png" alt="Unguided"><span class="slide-label">FLUX.1-dev</span></div>
+                <div class="slide-cell"><img src="static/images/aesthetic/v2_004_fmtg.png" alt="FMTG"><span class="slide-label">+ FMTG</span></div>
+                <div class="slide-prompt">Dramatic biblical scene, baroque style, intense lighting, rich colors</div>
+            </div>
+            <div class="carousel-slide">
+                <div class="slide-cell"><img src="static/images/aesthetic/v2_005_unguided.png" alt="Unguided"><span class="slide-label">FLUX.1-dev</span></div>
+                <div class="slide-cell"><img src="static/images/aesthetic/v2_005_fmtg.png" alt="FMTG"><span class="slide-label">+ FMTG</span></div>
+                <div class="slide-prompt">Impressionist garden, loose brushstrokes, vibrant light, soft forms</div>
+            </div>
+            <div class="carousel-slide">
+                <div class="slide-cell"><img src="static/images/aesthetic/v2_012_unguided.png" alt="Unguided"><span class="slide-label">FLUX.1-dev</span></div>
+                <div class="slide-cell"><img src="static/images/aesthetic/v2_012_fmtg.png" alt="FMTG"><span class="slide-label">+ FMTG</span></div>
+                <div class="slide-prompt">Giant moon resting on the ocean, glowing softly, dreamlike</div>
+            </div>
+            <div class="carousel-slide">
+                <div class="slide-cell"><img src="static/images/aesthetic/v2_016_unguided.png" alt="Unguided"><span class="slide-label">FLUX.1-dev</span></div>
+                <div class="slide-cell"><img src="static/images/aesthetic/v2_016_fmtg.png" alt="FMTG"><span class="slide-label">+ FMTG</span></div>
+                <div class="slide-prompt">Crashing waves in slow motion, soft mist, cinematic</div>
+            </div>
+            <div class="carousel-slide">
+                <div class="slide-cell"><img src="static/images/aesthetic/v2_017_unguided.png" alt="Unguided"><span class="slide-label">FLUX.1-dev</span></div>
+                <div class="slide-cell"><img src="static/images/aesthetic/v2_017_fmtg.png" alt="FMTG"><span class="slide-label">+ FMTG</span></div>
+                <div class="slide-prompt">Moss-covered ruins, soft light filtering through trees</div>
+            </div>
+            <div class="carousel-slide">
+                <div class="slide-cell"><img src="static/images/aesthetic/v2_022_unguided.png" alt="Unguided"><span class="slide-label">FLUX.1-dev</span></div>
+                <div class="slide-cell"><img src="static/images/aesthetic/v2_022_fmtg.png" alt="FMTG"><span class="slide-label">+ FMTG</span></div>
+                <div class="slide-prompt">The last night of summer, warm air, nostalgic glow</div>
+            </div>
+            <div class="carousel-slide">
+                <div class="slide-cell"><img src="static/images/aesthetic/v2_023_unguided.png" alt="Unguided"><span class="slide-label">FLUX.1-dev</span></div>
+                <div class="slide-cell"><img src="static/images/aesthetic/v2_023_fmtg.png" alt="FMTG"><span class="slide-label">+ FMTG</span></div>
+                <div class="slide-prompt">A dream half-forgotten, pastel haze, quiet emotion</div>
+            </div>
+        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
+    </div>
+    <p class="figure-caption"><strong>Aesthetic enhancement.</strong> FMTG steers FLUX.1-dev toward higher human preference reward (NFE = 21). Use arrows to browse examples.</p>
 
     <!-- Quantitative table -->
     <div class="table-wrapper">
@@ -1174,7 +1347,7 @@
     <p>If you find this work useful, please cite our paper:</p>
     <div class="bibtex-block">
         <button class="copy-btn" onclick="copyBibtex()"><i class="fas fa-copy"></i> Copy</button>
-        <pre><code>@article{huang2026how,
+        <pre><code>@article{huang2026fmtg,
   title={How to Guide Your Flow: Steering Flow Maps for Rapid Test-Time Alignment},
   author={Huang, Jerry and Lin, Justin and Shah, Sheel and Nair, Kartik and Boffi, Nicholas M.},
   journal={arXiv preprint},
@@ -1234,6 +1407,27 @@ document.querySelectorAll('.algo-tab').forEach(tab => {
         document.getElementById('algo-line-e').style.display = isJ ? 'none' : '';
     });
 });
+
+// ── Aesthetic Carousel ──
+let carouselIdx = 0;
+const track = document.getElementById('carouselTrack');
+const slides = track.querySelectorAll('.carousel-slide');
+const dotsContainer = document.getElementById('carouselDots');
+
+slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+});
+
+function goToSlide(i) {
+    carouselIdx = (i + slides.length) % slides.length;
+    track.style.transform = `translateX(-${carouselIdx * 100}%)`;
+    dotsContainer.querySelectorAll('.carousel-dot').forEach((d, j) => d.classList.toggle('active', j === carouselIdx));
+}
+function carouselPrev() { goToSlide(carouselIdx - 1); }
+function carouselNext() { goToSlide(carouselIdx + 1); }
 
 function copyBibtex() {
     const bibtex = document.querySelector('.bibtex-block code').textContent;
